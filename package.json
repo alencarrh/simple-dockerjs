@@ -4,7 +4,8 @@
   "description": "A simple dockerjs helper",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node lib/test.js",
+    "build": "babel src -d lib"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,14 @@
   "bugs": {
     "url": "https://github.com/alencarrh/simple-dockerjs/issues"
   },
-  "homepage": "https://github.com/alencarrh/simple-dockerjs#readme"
+  "homepage": "https://github.com/alencarrh/simple-dockerjs#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "babel-plugin-dynamic-import-node": "^2.3.0"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.4.4"
+  }
 }
