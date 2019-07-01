@@ -30,6 +30,10 @@
     "babel-plugin-dynamic-import-node": "^2.3.0"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.4"
+    "@babel/polyfill": "^7.4.4",
+    "chalk": "^2.4.2",
+    "loglevel": "^1.6.3",
+    "loglevel-plugin-prefix": "^0.8.4",
+    "shelljs": "^0.8.3"
   }
 }
