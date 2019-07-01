@@ -16,12 +16,11 @@ class Container {
     }
 
     isRunning() {
-        return inspect.inspect(this.id).status.isRunning();
+        return inspect.inspectOne(this.id).running;
     }
 
     static from(text) {
-        // #review: checkout why we have a ' character in the begging and in the end of the string
-        let values = text.substr(1).slice(0, -1).split(DELIMITER);
+        let values = text.split(DELIMITER);
         return new Container(values[0], values[1], values[2], values[3] || '');
     }
 }
@@ -29,6 +28,7 @@ class Container {
 export function ls(args) {
     logging.info(`[ls] listing containers. args=[${args || ''}]`)
     return shell.execute(BASE_COMMAND, 'ls', `${FORMAT} ${args || ''}`)
+        .replace(/'/g, '')
         .split('\n')
         .filter(r => !!r)
         .map(r => Container.from(r));
