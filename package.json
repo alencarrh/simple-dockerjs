@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node lib/test.js",
-    "build": "babel src -d lib"
+    "build": "babel src -d lib --copy-files"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "chalk": "^2.4.2",
+    "command-line-args": "^5.1.1",
     "loglevel": "^1.6.3",
     "loglevel-plugin-prefix": "^0.8.4",
     "shelljs": "^0.8.3"

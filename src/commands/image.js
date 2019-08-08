@@ -1,9 +1,12 @@
 import * as shell from '../utils/shell'
-const logging = require('../utils/logging').forModule('image')
+
+import * as log from '../utils/logging'
 
 const BASE_COMMAND = 'image';
 const DELIMITER = '#';
 const FORMAT = `--format '{{.ID}}${DELIMITER}{{.Repository}}${DELIMITER}{{.Tag}}'`;
+
+const logging = log.forModule(BASE_COMMAND)
 
 class Image {
 

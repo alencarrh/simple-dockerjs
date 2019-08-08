@@ -1,6 +1,7 @@
 import chalk from 'chalk'
 import loglevel from 'loglevel'
 import prefix from 'loglevel-plugin-prefix'
+import settings from '../settings/settings'
 import Optional from './optional'
 
 prefix.reg(loglevel);
@@ -38,7 +39,9 @@ prefix.apply(loglevel, {
 });
 
 let level = LEVELS.INFO;
-loglevel.name = "root";
+loglevel.name = settings.log.rootName;
+type(settings.log.defaultLevel)
+loglevel.setLevel(settings.log.defaultLevel)
 
 export { LEVELS as levels };
 export { loglevel as log };
@@ -49,7 +52,7 @@ export function set(newLevel) {
 }
 
 export function type(value) {
-    Optional.for(knownLevels.find(kl => kl === value))
+    Optional.of(knownLevels.find(kl => kl === value))
         .orError(`The valid log-levels are [${knownLevels.join(', ')}]`);
 }
 

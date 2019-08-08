@@ -1,10 +1,12 @@
 import * as shell from '../utils/shell'
 import * as inspect from './inspect'
-const logging = require('../utils/logging').forModule('container')
+import * as log from '../utils/logging'
 
 const BASE_COMMAND = 'container';
 const DELIMITER = '#';
 const FORMAT = `--format '{{.ID}}${DELIMITER}{{.Names}}${DELIMITER}{{.Image}}${DELIMITER}{{.Ports}}'`;
+
+const logging = log.forModule(BASE_COMMAND)
 
 class Container {
 
@@ -16,7 +18,7 @@ class Container {
     }
 
     isRunning() {
-        return inspect.inspectOne(this.id).running;
+        return inspect.inspect(this.id).running;
     }
 
     static from(text) {

@@ -1,8 +1,10 @@
 import * as shell from '../utils/shell'
-const logging = require('../utils/logging').forModule('inspect')
+import * as log from '../utils/logging'
+import Optional from '../utils/optional';
 
 const BASE_COMMAND = 'inspect';
 const FORMAT = `--format '{{.State.Running}}`;
+const logging = log.forModule(BASE_COMMAND)
 
 class Inspect {
 
@@ -19,18 +21,22 @@ class Inspect {
     }
 }
 
-function inspect(id_or_name, one = false) {
-    logging.info(`[inspect] inspecting id|name='${id_or_name}'`);
-    return shell.execute(BASE_COMMAND, '', `${FORMAT} ${id_or_name}`).replace(/'/g, '');
+function _inspect(id) {
+    logging.info(`[inspect] inspecting id|name='${id}'`);
+    return shell.execute(BASE_COMMAND, '', `${FORMAT} ${id}`).replace(/'/g, '');
 }
 
-export function inspectOne(id_or_name) {
-    return Inspect.from(inspect(id_or_name, true));
+export function inspect(id) {
+    return Optional.of(id)
+        .map((_id) => _inspect(_id))
+        .map((_result) => Inspect.from(_result))
+        .orError("Inspect command requires an id.");
 }
 
-export function inspectList(id_or_name) {
-    return inspect(id_or_name)
-        .split('\n')
-        .filter(r => !!r)
-        .map(r => Inspect.from(r));
+export function inspectList(ids, listFromString = false, separator = ' ') {
+    return Optional.of(ids)
+        .map((_ids) => listFromString ? _ids.split(separator) : _ids)
+        .orError(`InspectList expected a list of IDs but received: '${ids}'`)
+        .filter((_id) => !!_id)
+        .map((_id) => inspect(_id));
 }

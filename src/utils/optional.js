@@ -7,19 +7,39 @@ export default class Optional {
         return this.value;
     }
 
-    or(action) {
-        return this.value || (action && action());
+    map(mapper) {
+        return this.isPresent() ? Optional.of(mapper(this.value)) : Optional.empty();
+    }
+
+    orElse(otherValue) {
+        return this.value || otherValue;
+    }
+
+    orElseDo(action) {
+        return this.value || action();
     }
 
     orError(message) {
-        if (!this.value) {
+        if (!this.isPresent()) {
             throw new Error(message);
         }
 
         return this.value;
     }
 
-    static for(value) {
+    ifPresent(action) {
+        action(this.value);
+    }
+
+    isPresent() {
+        return !!this.value;
+    }
+
+    static empty() {
+        return new Optional('');
+    }
+
+    static of(value) {
         return new Optional(value);
     }
 }
