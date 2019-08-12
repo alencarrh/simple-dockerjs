@@ -1,5 +1,5 @@
-import * as shell from '../utils/shell'
-import * as log from '../utils/logging'
+import shell from '../utils/shell'
+import log from '../utils/logging'
 import Optional from '../utils/optional';
 
 const BASE_COMMAND = 'inspect';

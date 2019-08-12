@@ -1,6 +1,6 @@
-import * as shell from '../utils/shell'
-import * as inspect from './inspect'
-import * as log from '../utils/logging'
+import shell from '../utils/shell'
+import { inspect } from './inspect'
+import log from '../utils/logging'
 
 const BASE_COMMAND = 'container';
 const DELIMITER = '#';
@@ -18,7 +18,7 @@ class Container {
     }
 
     isRunning() {
-        return inspect.inspect(this.id).running;
+        return inspect(this.id).running;
     }
 
     static from(text) {

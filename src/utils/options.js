@@ -1,5 +1,5 @@
-import * as commandLineArgs from 'command-line-args'
-import * as log from './logging'
+import commandLineArgs from 'command-line-args'
+import log from './logging'
 
 const logging = log.forModule('options');
 

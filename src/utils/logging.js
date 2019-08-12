@@ -38,10 +38,10 @@ prefix.apply(loglevel, {
     },
 });
 
-let level = LEVELS.INFO;
+let level = settings.log.defaultLevel;
 loglevel.name = settings.log.rootName;
-type(settings.log.defaultLevel)
-loglevel.setLevel(settings.log.defaultLevel)
+type(level)
+loglevel.setLevel(level)
 
 export { LEVELS as levels };
 export { loglevel as log };
@@ -66,3 +66,5 @@ export function forModule(module) {
     });
     return moduleLog;
 }
+
+export default { forModule }

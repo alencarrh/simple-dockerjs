@@ -1,9 +1,11 @@
-import * as shell from 'shelljs'
-import * as log from './logging'
+import shell from 'shelljs'
+import log from './logging'
 
 const logging = log.forModule('shell');
 
 const PREVIOUS_PATH = '-';
+
+export default { execute, executeInPath }
 
 export function execute(command, action, args = undefined, exitOnError = true) {
     const _command = buildCommand(command, action, args);

@@ -1,6 +1,5 @@
-import * as shell from '../utils/shell'
-
-import * as log from '../utils/logging'
+import shell from '../utils/shell'
+import log from '../utils/logging'
 
 const BASE_COMMAND = 'image';
 const DELIMITER = '#';

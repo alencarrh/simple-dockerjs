@@ -1,6 +1,6 @@
 {
     "log": {
         "rootName": "global",
-        "defaultLevel": "info"
+        "defaultLevel": "debug"
     }
 }
