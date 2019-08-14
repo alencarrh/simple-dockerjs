@@ -1,17 +1,15 @@
-import { log } from './utils/logging'
-import settings from './settings/settings'
 import { container, image, inspect } from './docker'
-import Optional from './utils/optional'
 
 let containers = container.ls('-a');
 containers.forEach(_container => _container["running"] = _container.isRunning())
+
+console.log(containers);
+
 let images = image.ls();
+console.log(images);
 
 
 const ids = containers.reduce((previous, current) => previous + `${current.id} `, '');
-let status = inspect.inspectList(ids, true);
-
-console.log(containers);
-console.log(images);
+let status = inspect.inspectList('asdasdasdasd', true);
 console.log(status);
 

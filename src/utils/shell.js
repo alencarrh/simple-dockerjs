@@ -4,6 +4,8 @@ import log from './logging'
 const logging = log.forModule('shell');
 
 const PREVIOUS_PATH = '-';
+const EMPTY_RESULT_CODE = 1;
+const SUCCESS_CODE = 0;
 
 export default { execute, executeInPath }
 
@@ -12,8 +14,8 @@ export function execute(command, action, args = undefined, exitOnError = true) {
     logging.debug(`executing command: ${_command}`)
     const output = shell.exec(_command, { silent: true });
 
-    if (exitOnError && output.code !== 0) {
-        throw new Error(`(${output.code}): ${output.stdout}`);
+    if (exitOnError && output.code !== SUCCESS_CODE) {
+        handleShellError(output);
     }
 
     return output.stdout;
@@ -34,3 +36,14 @@ function cd(path) {
     shell.cd(path);
 }
 
+function handleShellError(output) {
+
+    //TODO: maybe create a map of CODE -> { RESULT, LOG_MESSAGE }
+    // so these IF's aren't necessary and to add one more handler be more simple
+    if (output.code == EMPTY_RESULT_CODE) {
+        logging.debug('command resulted in an empty result');
+        return;
+    }
+
+    throw new Error(`(${output.code}): ${output.stdout}`);
+}
