@@ -4,8 +4,15 @@ import log from './logging'
 const logging = log.forModule('shell');
 
 const PREVIOUS_PATH = '-';
-const EMPTY_RESULT_CODE = 1;
 const SUCCESS_CODE = 0;
+
+const EXPECTED_ERROR = {
+    1: {
+        'result': undefined,
+        'name': 'EMPTY_RESULT',
+        'description': 'command resulted in an empty result',
+    }
+}
 
 export default { execute, executeInPath }
 
@@ -38,11 +45,11 @@ function cd(path) {
 
 function handleShellError(output) {
 
-    //TODO: maybe create a map of CODE -> { RESULT, LOG_MESSAGE }
-    // so these IF's aren't necessary and to add one more handler be more simple
-    if (output.code == EMPTY_RESULT_CODE) {
-        logging.debug('command resulted in an empty result');
-        return;
+    const expectedError = EXPECTED_ERROR[output.code];
+
+    if (!!expectedError) {
+        logging.debug(`${expectedError.name}: ${expectedError.description}`);
+        return expectedError.result;
     }
 
     throw new Error(`(${output.code}): ${output.stdout}`);

@@ -36,7 +36,7 @@ export default class Optional {
     }
 
     static empty() {
-        return new Optional('');
+        return new Optional(undefined);
     }
 
     static of(value) {

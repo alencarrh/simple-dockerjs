@@ -1,5 +1,5 @@
 import shell from '../utils/shell'
-import { BREAK_LINE, EMPTY_LIST } from '../utils/constants'
+import { EMPTY_LIST, EMPTY_RESULT } from '../utils/constants'
 import log from '../utils/logging'
 import Optional from '../utils/optional';
 
@@ -9,7 +9,8 @@ const logging = log.forModule(BASE_COMMAND)
 
 class Inspect {
 
-    constructor(running) {
+    constructor(id, running) {
+        this.id = id;
         this.running = running;
     }
 
@@ -17,29 +18,27 @@ class Inspect {
         return this.running;
     }
 
-    static from(output) {
-        return new Inspect(JSON.parse(output));
+    static from(id, output) {
+        return new Inspect(id, JSON.parse(output));
     }
 }
 
 function _inspect(id) {
     logging.info(`[inspect] inspecting id|name='${id}'`);
-    return shell.execute(BASE_COMMAND, '', `${FORMAT} ${id}`).replace(/'/g, '');
+    return shell.execute(BASE_COMMAND, '', `${FORMAT} ${id}`).replace(/'|\n/g, '');
 }
 
 export function inspect(id) {
     return Optional.of(id)
         .map(_id => _inspect(_id))
-        .map(_result => Inspect.from(_result))
-        .orError("either the ID was empty or the command resulted in an empty result");
+        .map(_result => Inspect.from(id, _result))
+        .orElse(EMPTY_RESULT);
 }
 
-export function inspectList(ids, stringAsList = false) {
+export function inspectList(ids, fromString = false, delimiter = ' ') {
     return Optional.of(ids)
-        .map(_ids => listAsList ? _ids.join(' ') : _ids)
-        .map(_ids => _inspect(_ids))
-        .map(result => result.split(BREAK_LINE))
+        .map(_ids => fromString ? _ids.split(delimiter) : _ids)
         .orElse(EMPTY_LIST)
-        .filter(r => !!r)
-        .map((result) => Inspect.from(result));
+        .map(_id => inspect(_id))
+        .filter(r => !!r);
 }

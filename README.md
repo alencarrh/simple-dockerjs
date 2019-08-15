@@ -4,3 +4,5 @@ Simple DockerJS is a javascript library to make it easy to use docker within jav
 
 
 TODO documentation
+
+    - Explain how to use and show examples

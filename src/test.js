@@ -10,6 +10,6 @@ console.log(images);
 
 
 const ids = containers.reduce((previous, current) => previous + `${current.id} `, '');
-let status = inspect.inspectList('asdasdasdasd', true);
+let status = inspect.inspectList(['ABC', '40ce61d5bcf6', 'alalalalala']);
 console.log(status);
 
