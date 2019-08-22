@@ -1,11 +1,12 @@
 {
   "name": "simple-dockerjs",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "Simple DockerJS is a javascript library to make it easy to use docker within javascript code.",
-  "main": "index.js",
+  "main": "lib/docker.js",
   "scripts": {
     "start": "node lib/test.js",
-    "build": "babel src -d lib --copy-files"
+    "build": "babel src -d lib --copy-files",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
