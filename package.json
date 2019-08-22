@@ -1,6 +1,6 @@
 {
   "name": "simple-dockerjs",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Simple DockerJS is a javascript library to make it easy to use docker within javascript code.",
   "main": "lib/docker.js",
   "scripts": {
