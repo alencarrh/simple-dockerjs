@@ -1,5 +1,6 @@
 [![view on npm](https://img.shields.io/npm/v/simple-dockerjs.svg)](https://www.npmjs.org/package/simple-dockerjs)
 [![npm module downloads](https://img.shields.io/npm/dt/simple-dockerjs.svg)](https://www.npmjs.org/package/simple-dockerjs)
+[![dependencies Status](https://david-dm.org/alencarrh/simple-dockerjs/status.svg)](https://david-dm.org/alencarrh/simple-dockerjs)
 
 # Simple DockerJS
 
